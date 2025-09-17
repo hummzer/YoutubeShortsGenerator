@@ -7,6 +7,7 @@ import whisper
 from tqdm import tqdm
 import time
 
+
 def download_video(urls, output_dir="downloads"):
     os.makedirs(output_dir, exist_ok=True)
     print("[1/5] Downloading videos:")
@@ -67,13 +68,11 @@ def create_shorts(video_path, segments, output_dir="shorts", max_count=10):
                 print(f"Skipping segment due to error: {e}")
     print(f"[4/5] Done. Created {shorts_created} shorts.")
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-l", "--list", required=True, help="Text file with YouTube links (one per line)")
-    args = parser.parse_args()
-
-    with open(args.list, "r") as f:
-        links = [line.strip() for line in f if line.strip()]
+# --- Refactored function for GUI integration ---
+def process_videos(links):
+    if not links:
+        print("No YouTube links provided.")
+        return
 
     download_video(links)
 
@@ -89,6 +88,35 @@ def main():
         else:
             print(f"Skipping '{file}' — Not between 30min and 1hr.")
 
-if __name__ == "__main__":
-    main()
 
+# --- Original command-line functionality ---
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-l", "--list", help="Text file with YouTube links (one per line)")
+    parser.add_argument("-u", "--url", help="A single YouTube URL")
+    args = parser.parse_args()
+
+    links = []
+    if args.list:
+        with open(args.list, "r") as f:
+            links = [line.strip() for line in f if line.strip()]
+    elif args.url:
+        links = [args.url]
+    else:
+        parser.print_help()
+        exit(1)
+
+    for link in links:
+        print(f"\nProcessing video: {link}")
+        download_video([link])
+        files = [file for file in os.listdir("downloads") if file.endswith(".mp4")]
+        for file in files:
+            path = os.path.join("downloads", file)
+            if os.path.getsize(path) > 0: # Ensure the file is not empty
+                print(f"Processing video: {file}")
+                if is_video_duration_valid(path):
+                    segments = transcribe_audio(path)
+                    create_shorts(path, segments)
+                    print(f"Processing completed for: {file}\n")
+                else:
+                    print(f"Skipping '{file}' — Not between 30min and 1hr.")

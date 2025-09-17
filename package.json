@@ -1,0 +1,44 @@
+{
+  "name": "youtubeshortsgenerator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hummzer/YoutubeShortsGenerator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hummzer/YoutubeShortsGenerator/issues"
+  },
+  "homepage": "https://github.com/hummzer/YoutubeShortsGenerator#readme",
+  "dependencies": {
+    "@prisma/client": "^6.16.2",
+    "@stripe/react-stripe-js": "^4.0.2",
+    "@stripe/stripe-js": "^7.9.0",
+    "@types/node": "^24.5.1",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "autoprefixer": "^10.4.21",
+    "bcryptjs": "^3.0.2",
+    "eslint": "^9.35.0",
+    "eslint-config-next": "^15.5.3",
+    "next": "^15.5.3",
+    "next-auth": "^4.24.11",
+    "postcss": "^8.5.6",
+    "prisma": "^6.16.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "stripe": "^18.5.0",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^3.0.0"
+  }
+}

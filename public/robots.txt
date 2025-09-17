@@ -1,0 +1,12 @@
+# /public/robots.txt
+
+User-agent: *
+
+# Allow crawling on public-facing pages
+Allow: /
+Allow: /pricing
+
+# Disallow crawling on sensitive user-specific pages
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
